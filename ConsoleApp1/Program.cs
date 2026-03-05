@@ -50,6 +50,13 @@ namespace ConsoleApp1
 
             #endregion
 
+            #region Question03
+            //Q3: Explain the difference between a shallow copy and a deep copy.When would you use each one?
+            //What is the risk of using a shallow copy when the object has reference - type fields ?
+            //Sallow Copy: copy object but copies inner reference vs Deep Copy: copy object with nested copies refrences.
+            //Becuase Shallow Copy is immutable, no nested reference state. Shared
+            #endregion
+
             #endregion
         }
     }

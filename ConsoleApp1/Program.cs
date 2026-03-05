@@ -57,6 +57,28 @@ namespace ConsoleApp1
             //Becuase Shallow Copy is immutable, no nested reference state. Shared
             #endregion
 
+            #region Question04
+
+            //Q4: Look at the following code and determine the output.Explain why.
+
+            //class Department { public string Name; }
+            //class Employee
+            //{
+            //    public string Title;
+            //    public Department Dept;
+            //    public Employee ShallowCopy() => (Employee)this.MemberwiseClone();
+            //}
+
+            //var e1 = new Employee { Title = "Dev", Dept = new Department { Name = "IT" } };
+            //var e2 = e1.ShallowCopy();
+            //e2.Title = "QA";
+            //e2.Dept.Name = "Testing";
+
+            //Console.WriteLine($"{e1.Title} - {e1.Dept.Name}"); //Dev - Testing
+            //Console.WriteLine($"{e2.Title} - {e2.Dept.Name}"); //QA - Testing
+            //String is Immutable and the Shallow no nested reference So New outer object is created, but inner references point to the same objects
+
+            #endregion
             #endregion
         }
     }

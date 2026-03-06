@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Metrics;
+﻿using ConsoleApp1.Part02;
+using System.Diagnostics.Metrics;
 using System.IO;
 
 namespace ConsoleApp1
@@ -80,6 +81,53 @@ namespace ConsoleApp1
 
             #endregion
             #endregion
+
+            #region Part 02 : Practical (Extending the Movie Ticket Booking System)
+
+            Cinema cinema = new Cinema("Masr");
+            cinema.OpenCinema();
+
+            StandardTicket ticket01 = new StandardTicket("A-5", "Inception", 150m);
+            VIPTicket ticket02 = new VIPTicket(true, "Avergers", 200m);
+            IMAXTicket ticket03 = new IMAXTicket(true, "Dune", 180);
+            IMAXTicket ticket04 = new IMAXTicket(true, "Dune", 180);
+
+
+            cinema.Booking(ticket01);
+            cinema.Booking(ticket02);
+            cinema.Booking(ticket03);
+
+            //Print All Tickets
+            cinema.Print();
+            Console.WriteLine();
+
+            //Test Clone
+            Console.WriteLine("============ Clone Test =============");
+            Console.Write($"Original : ");
+            ticket02.Print();
+            VIPTicket vip = (VIPTicket)ticket02.Clone();
+            vip.MovieName = "Interstellar ";
+            Console.Write($"Clone : ");
+            vip.Print();
+            Console.WriteLine();
+
+            //Test Cancellation
+            Console.WriteLine("========== After Cancellation =========");
+            cinema.Cancellation(ticket01);
+            Console.WriteLine();
+
+            //BookingHelper
+            Console.WriteLine("============= BookingHelper ============");
+            BookingHelper(cinema);
+            Console.WriteLine();
+
+            cinema.CloseCinema();
+            #endregion
+        }
+        public static void BookingHelper(IPrintable printable)
+        {
+                printable.Print();
+            
         }
     }
 }

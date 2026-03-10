@@ -1,9 +1,132 @@
-﻿namespace ConsoleApp1
+﻿using ConsoleApp1.Part02;
+using System.Diagnostics.Metrics;
+using System.IO;
+
+namespace ConsoleApp1
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            #region Part 01 : Theoretical Questions
+
+            #region Question01
+
+            //Q1: What is an interface in C#?
+            //=>> A contract that a class must follow.
+            //Why do we use interfaces instead of depending on concrete classes directly?
+            //when you need multiple inheritance behavior and loose coupling.
+            //Mention at least three benefits of using interfaces.
+            //loose coupling, easy to extend , easy to test.
+
+            #endregion
+
+            #region Question02
+            //interface IEnglishSpeaker
+            //{
+            //    void Greet();
+            //}
+
+            //interface IArabicSpeaker
+            //{
+            //    void Greet();
+            //}
+
+            //class Translator : IEnglishSpeaker, IArabicSpeaker
+            //{
+            //    public void Greet()
+            //    {
+            //        Console.WriteLine("Hello / Ahlan");
+            //    }
+            //}
+
+            //a) What is the problem with this design? => method name conflict
+            //Both interfaces have a method called Greet() — how does the class handle it currently?
+            //Use Explicit Interface Implementation
+            //b) How would you fix this so IEnglishSpeaker.Greet() says "Hello" and IArabicSpeaker.Greet() says "Ahlan"? What is this technique called?
+            //Explicit Interface Implementation
+            //c) After applying your fix, can you call Greet() directly on a Translator object (e.g.translator.Greet())?
+            //Why or why not? How do you call each version?
+            //No,You must use interface reference only from its interface class to call explicit members
+
+            #endregion
+
+            #region Question03
+            //Q3: Explain the difference between a shallow copy and a deep copy.When would you use each one?
+            //What is the risk of using a shallow copy when the object has reference - type fields ?
+            //Sallow Copy: copy object but copies inner reference vs Deep Copy: copy object with nested copies refrences.
+            //Becuase Shallow Copy is immutable, no nested reference state. Shared
+            #endregion
+
+            #region Question04
+
+            //Q4: Look at the following code and determine the output.Explain why.
+
+            //class Department { public string Name; }
+            //class Employee
+            //{
+            //    public string Title;
+            //    public Department Dept;
+            //    public Employee ShallowCopy() => (Employee)this.MemberwiseClone();
+            //}
+
+            //var e1 = new Employee { Title = "Dev", Dept = new Department { Name = "IT" } };
+            //var e2 = e1.ShallowCopy();
+            //e2.Title = "QA";
+            //e2.Dept.Name = "Testing";
+
+            //Console.WriteLine($"{e1.Title} - {e1.Dept.Name}"); //Dev - Testing
+            //Console.WriteLine($"{e2.Title} - {e2.Dept.Name}"); //QA - Testing
+            //String is Immutable and the Shallow no nested reference So New outer object is created, but inner references point to the same objects
+
+            #endregion
+            #endregion
+
+            #region Part 02 : Practical (Extending the Movie Ticket Booking System)
+
+            Cinema cinema = new Cinema("Masr");
+            cinema.OpenCinema();
+
+            StandardTicket ticket01 = new StandardTicket("A-5", "Inception", 150m);
+            VIPTicket ticket02 = new VIPTicket(true, "Avergers", 200m);
+            IMAXTicket ticket03 = new IMAXTicket(true, "Dune", 180);
+            IMAXTicket ticket04 = new IMAXTicket(true, "Dune", 180);
+
+
+            cinema.Booking(ticket01);
+            cinema.Booking(ticket02);
+            cinema.Booking(ticket03);
+
+            //Print All Tickets
+            cinema.Print();
+            Console.WriteLine();
+
+            //Test Clone
+            Console.WriteLine("============ Clone Test =============");
+            Console.Write($"Original : ");
+            ticket02.Print();
+            VIPTicket vip = (VIPTicket)ticket02.Clone();
+            vip.MovieName = "Interstellar ";
+            Console.Write($"Clone : ");
+            vip.Print();
+            Console.WriteLine();
+
+            //Test Cancellation
+            Console.WriteLine("========== After Cancellation =========");
+            cinema.Cancellation(ticket01);
+            Console.WriteLine();
+
+            //BookingHelper
+            Console.WriteLine("============= BookingHelper ============");
+            BookingHelper(cinema);
+            Console.WriteLine();
+
+            cinema.CloseCinema();
+            #endregion
+        }
+        public static void BookingHelper(IPrintable printable)
+        {
+                printable.Print();
             
         }
     }
